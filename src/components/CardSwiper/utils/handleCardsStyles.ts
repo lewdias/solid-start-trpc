@@ -28,13 +28,12 @@ export const openCards = (target: Element, total: number) => {
 export const closeCards = (target: Element) => {
   const children = target.children as HTMLCollectionOf<HTMLDivElement>;
   for (const card of children) {
-    console.log(card)
     setDefaultCardStyles(card, Number(card.dataset.index));
   }
 };
 
-export const setDefaultCardStyles = (target: HTMLDivElement, index?: number) => {
+export const setDefaultCardStyles = (el: HTMLDivElement, index?: number) => {
   if (index !== undefined) {
-    target.style.setProperty("transform", `translateX(${2 * index}%`);
+    el.style.setProperty("transform", `translateX(${2 * index}%`);
   }
 };
