@@ -1,12 +1,18 @@
 import { Form } from "solid-start/data/Form";
+import { CardSwiper } from "~/components/CardSwiper";
 import { TitleMagic } from "~/components/TitleMagic";
 
 export default function Home() {
   return (
-    <main class="w-full p-24 space-y-2">
+    <>
+      <TitleMagic
+        beforeEffectTitle="Testing"
+        effectTitle="stars thing bright"
+        afterEffectTitle="Testing"
+      />
       <div>
-        <TitleMagic />
+        <CardSwiper />
       </div>
-    </main>
+    </>
   );
 }

@@ -2,17 +2,16 @@ import "./TitleMagic.css";
 import { Component } from "solid-js";
 import { TitleMagicStar } from "./TitleMagicStar";
 
-export const TitleMagic: Component<{ title?: string; effectTitle?: string }> = ({
-  title,
-  effectTitle,
-}) => {
-  let index = 0,
-    interval = 1000;
+export const TitleMagic: Component<{
+  beforeEffectTitle?: string;
+  effectTitle?: string;
+  afterEffectTitle?: string;
+}> = ({ beforeEffectTitle, effectTitle, afterEffectTitle }) => {
 
   const rand = (min: number, max: number) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
 
-  const AnimateStar = (star: HTMLSpanElement) => {
+  const animateStar = (star: HTMLSpanElement) => {
     star.style.setProperty("--star-left", `${rand(-10, 100)}%`);
     star.style.setProperty("--star-top", `${rand(-40, 80)}%`);
 
@@ -21,25 +20,24 @@ export const TitleMagic: Component<{ title?: string; effectTitle?: string }> = (
     star.style.animation = "";
   };
 
-  const TriggerStarAnimation = (star: HTMLSpanElement) => {
+  const triggerStarAnimation = (star: HTMLSpanElement, index: number, interval: number) => {
     setTimeout(() => {
-      AnimateStar(star);
+      animateStar(star);
 
-      setInterval(() => AnimateStar(star), 1000);
-    }, index++ * (interval / 3));
+      setInterval(() => animateStar(star), 1000);
+    }, index * (interval / 3));
   };
 
   return (
     <h1 class="Title">
-      Testing stuff{" "}
+      {beforeEffectTitle}{" "}
       <span class="Title__magic">
-        <TitleMagicStar ref={(el) => TriggerStarAnimation(el)} />
-        <TitleMagicStar ref={(el) => TriggerStarAnimation(el)} />
-        <TitleMagicStar ref={(el) => TriggerStarAnimation(el)} />
-        <TitleMagicStar ref={(el) => TriggerStarAnimation(el)} />
-        <span class="Title__magic__text"> with stars and things </span>
+        <TitleMagicStar ref={(el: HTMLSpanElement) => triggerStarAnimation(el, 0, 1200)} />
+        <TitleMagicStar ref={(el: HTMLSpanElement) => triggerStarAnimation(el, 1, 900)} />
+        <TitleMagicStar ref={(el: HTMLSpanElement) => triggerStarAnimation(el, 2, 1000)} />
+        <span class="Title__magic__text"> {effectTitle} </span>
       </span>{" "}
-      just for fun
+      {afterEffectTitle}
     </h1>
   );
 };
