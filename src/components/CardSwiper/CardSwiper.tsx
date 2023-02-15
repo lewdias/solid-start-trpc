@@ -1,5 +1,5 @@
 import "./CardSwiper.css";
-import { Component, createSignal, For } from "solid-js";
+import { Component, createSignal, Index } from "solid-js";
 import {
   setDefaultCardStyles,
   closeCards,
@@ -59,16 +59,16 @@ export const CardSwiper: Component<{}> = () => {
           onMouseEnter={({ target }) => handleCardsMouseEnter(target)}
           onMouseLeave={({ target }) => handleCardsMouseLeave(target)}
         >
-          <For each={cards}>
+          <Index each={cards}>
             {(_, index) => (
               <div
                 class="CardsGroups__item__card"
-                onClick={({ target }) => handleCardClick(target, index())}
-                data-index={index()}
-                ref={(el: HTMLDivElement) => setDefaultCardStyles(el, index())}
+                onClick={({ target }) => handleCardClick(target, index)}
+                data-index={index}
+                ref={(el: HTMLDivElement) => setDefaultCardStyles(el, index)}
               />
             )}
-          </For>
+          </Index>
         </div>
       </div>
     </div>
