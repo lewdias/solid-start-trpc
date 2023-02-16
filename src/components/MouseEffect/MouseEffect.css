@@ -1,0 +1,35 @@
+@keyframes rotateMouseEffect {
+  from {
+    rotate: 0deg;
+  }
+
+  50% {
+    scale: 1 1.5;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+.MouseEffect {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  translate: -50% -50%;
+  z-index: -2;
+
+  background: linear-gradient(to right, var(--pink), var(--sky));
+  border-radius: 100%;
+  animation: rotateMouseEffect 25s infinite;
+}
+
+.MouseEffect__blur {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  backdrop-filter: blur(200px);
+}

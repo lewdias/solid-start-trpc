@@ -1,10 +1,11 @@
-import { Form } from "solid-start/data/Form";
 import { CardSwiper } from "~/components/CardSwiper";
+import { MouseEffect } from "~/components/MouseEffect";
 import { TitleMagic } from "~/components/TitleMagic";
 
 export default function Home() {
   return (
     <>
+      <MouseEffect />
       <TitleMagic
         beforeEffectTitle="Testing"
         effectTitle="stars thing bright"
