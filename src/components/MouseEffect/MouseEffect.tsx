@@ -8,10 +8,10 @@ export const MouseEffect: Component<{}> = () => {
     const { clientX, clientY } = event;
     mouseEffect?.animate(
       {
-        left: `${clientX}px`,
         top: `${clientY}px`,
+        left: `${clientX}px`,
       },
-      { duration: 2000, fill: "both" }
+      { duration: 2000, fill: "forwards" }
     );
   };
 
