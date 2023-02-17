@@ -18,12 +18,13 @@
   position: absolute;
   left: 50%;
   right: 50%;
-  translate: -50% -50%;
+  transform: translate(-50%, -50%); 
   z-index: -2;
 
   background: linear-gradient(to right, var(--pink), var(--sky));
   border-radius: 100%;
   animation: rotateMouseEffect 25s infinite;
+  pointer-events: none;
 }
 
 .MouseEffect__blur {
@@ -31,5 +32,6 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  backdrop-filter: blur(200px);
+  backdrop-filter: blur(150px);
+  pointer-events: none;
 }

@@ -11,7 +11,7 @@ export const MouseEffect: Component<{}> = () => {
         left: `${clientX}px`,
         top: `${clientY}px`,
       },
-      { duration: 2000, fill: "forwards" }
+      { duration: 2000, fill: "both" }
     );
   };
 
@@ -26,7 +26,7 @@ export const MouseEffect: Component<{}> = () => {
   return (
     <>
       <div class="MouseEffect" ref={mouseEffect} />
-      <div class="MouseEffect__blur"/>
+      <div class="MouseEffect__blur" />
     </>
   );
 };

@@ -11,9 +11,7 @@ export default function Home() {
         effectTitle="stars thing bright"
         afterEffectTitle="Testing"
       />
-      <div>
-        <CardSwiper />
-      </div>
+      <CardSwiper />
     </>
   );
 }
