@@ -1,5 +1,5 @@
 import "./CardSwiper.css";
-import { Component, createSignal, Index } from "solid-js";
+import { Component, createSignal, Index, onCleanup, onMount } from "solid-js";
 import {
   setDefaultCardStyles,
   closeCards,
@@ -10,14 +10,32 @@ import {
 } from "./utils/handleCardsStyles";
 
 export const CardSwiper: Component<{}> = () => {
-  const [getSelectedCard, setSelectedCard] = createSignal();
+  const [getSelectedCard, setSelectedCard] = createSignal<number | undefined>();
   const total = 6;
   const cards = Array.from({ length: total }, (_, k) => k);
   const transformValues = getCardsTransformValues(total);
+  let cardsRef: HTMLDivElement[] = [];
 
-  const selectCard = (card: HTMLDivElement) => {
-    setSelectedCardStyle(card);
+  const handleClickOutside = (event: any) => {
+    const selectedCard = getSelectedCard();
+
+    if (selectedCard !== undefined) {
+      const openCard = cardsRef[selectedCard];
+
+      if (!openCard.contains(event.target)) {
+        setDefaultOpenCardStyles(openCard, selectedCard, transformValues);
+        setSelectedCard();
+      }
+    }
   };
+
+  onMount(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+  });
+
+  onCleanup(() => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  });
 
   const handleCardsMouseEnter = (target: Element) => {
     const selectedCard = getSelectedCard();
@@ -38,16 +56,17 @@ export const CardSwiper: Component<{}> = () => {
   const handleCardClick = (target: Element, index: number) => {
     const card = target as HTMLDivElement;
     const selectedCard = getSelectedCard();
+    const isOpenedCard = index === selectedCard;
 
-    if (!selectedCard && index !== selectedCard) {
-      selectCard(card);
-      setSelectedCard(index);
-      return;
-    }
-
-    if (index === selectedCard) {
+    if (isOpenedCard) {
       setDefaultOpenCardStyles(card, index, transformValues);
       setSelectedCard();
+    }
+
+    if (!isOpenedCard) {
+      setSelectedCardStyle(card);
+      setSelectedCard(index);
+      return;
     }
   };
 
@@ -65,7 +84,10 @@ export const CardSwiper: Component<{}> = () => {
                 class="CardsGroups__item__card"
                 onClick={({ target }) => handleCardClick(target, index)}
                 data-index={index}
-                ref={(el: HTMLDivElement) => setDefaultCardStyles(el, index)}
+                ref={(el: HTMLDivElement) => {
+                  cardsRef[index] = el;
+                  setDefaultCardStyles(el, index);
+                }}
               />
             )}
           </Index>

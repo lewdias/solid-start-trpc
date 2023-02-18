@@ -5,6 +5,10 @@ type TransformValuesType = {
   yDegValues: number[];
 };
 
+const randomInt = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 export const getCardsTransformValues = (total: number) => {
   const xValues = generateTransforms({
     total,
@@ -58,7 +62,8 @@ export const setDefaultOpenCardStyles = (
 
 export const setDefaultCardStyles = (el: HTMLDivElement, index?: number) => {
   if (index !== undefined) {
-    el.style.setProperty("transform", `translateX(${2 * index}%`);
+    el.style.setProperty("transform", `translateX(${randomInt(1, 30)}%`);
+    el.style.setProperty("transform", `rotate(${randomInt(1, 15)}deg`);
     el.style.setProperty("z-index", "1");
   }
 };
